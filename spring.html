@@ -1,0 +1,89 @@
+<html>
+<head>
+<script>
+var config={
+		bean: {
+			name: 'shop',
+			classname: 'ramushoeshop',
+			prop: {
+				name: 'shoefactory',
+				classname: 'batashoefactory'
+				}
+			}
+		}
+	var appcontext=(function(name) {
+		function init()
+		{
+			return {
+			getBean: function()
+			{
+				console.log(config.bean.prop.classname);
+				var con=config.bean.classname;
+				var conn=config.bean.prop.classname;
+				var ss=new window[con]();
+				var sf=new window[conn]();
+				ss.setShoeShop(sf);
+				return ss;
+				}
+			};
+		}
+		return {
+			load : function(){
+				return init();
+				}
+			}
+			})();
+			
+		var shoe={name:'shoe'};
+		function shoefactory()
+		{
+			this.makeShoe=function(){
+				console.log("make shoe");
+				return shoe;
+			}
+		}
+		function batashoefactory()
+		{
+			this.makeShoe=function()
+			{
+				console.log("shoe from batashoefactory");
+				return shoe;
+			}
+		}
+		batashoefactory.prototype=new shoefactory();
+		function lakhanishoefactory()
+		{
+			this.makeShoe=function()
+			{
+				console.log("shoe from lakhanishoefactory");
+				return shoe;
+			}
+		}
+		lakhanishoefactory.prototype=new shoefactory();
+		function Shoeshop()
+		{
+			this.shoefac='';
+			this.setShoeShop=function(shoefac)
+			{
+				this.shoefac=shoefac;
+			}
+			this.getShoeShop=function()
+			{
+				return this.shoefac;
+				
+			}
+		}
+		function ramushoeshop()
+		{
+			this.sellShoe=function()
+			{
+				console.log("shoe sold");
+				return this.getShoeShop().makeShoe();
+			}
+		}
+		ramushoeshop.prototype=new Shoeshop();
+		var sss=appcontext.load().getBean();
+		var s=sss.sellShoe();
+</script>
+</head>
+</html>

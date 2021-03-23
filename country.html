@@ -1,0 +1,50 @@
+<html>
+<head>
+<script>
+	function push(countrylist)
+   {
+	   var target=document.getElementById("target");
+	   for(j=0;j<countrylist.childNodes.length;j++){
+			target.options[j]=new Option(countrylist.childNodes.item(j).firstChild.nodeValue);
+		}
+   }
+   
+   function setCity(url)
+   {
+	   
+	   var ajaxObj=new XMLHttpRequest();
+	   ajaxObj.open("GET",url);
+	   ajaxObj.onreadystatechange=function(){
+			if(ajaxObj.readyState==4 && ajaxObj.status==200){
+				var country=document.getElementById("countryList").value;
+				//console.log(country);
+				var response=ajaxObj.responseXML;
+				var rootelement=response.documentElement;
+				for(var i=0;i<rootelement.childNodes.length;i++)
+                 {
+				 if(rootelement.childNodes.item(i).getAttribute("name")==country)
+				 {
+						var countrylist=rootelement.childNodes.item(i)
+                        push(countrylist);
+                 }
+                 }
+				}
+				}
+   
+   ajaxObj.send(null);
+   }
+   </script>
+</head>
+<body>
+        <form>
+        <select size="1" id="countryList" onChange="setCity('http://localhost:8080/city.xml')">
+        	<option value="india">India</option>
+        	<option value="iraq">IRAQ</option>
+        </select>
+         <select size="1" id="target">
+        	<option value="india">cities</option>
+        	
+        </select>
+        </form>
+</body>
+</html>

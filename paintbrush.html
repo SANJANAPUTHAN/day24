@@ -1,0 +1,56 @@
+<html>
+<head>
+<script>
+	function Paint()
+	{
+		this.getColor = function(){
+			return "The colour of the paint is : "+this.color;
+			}
+	}
+	function RedPaint(color)
+	{
+		this.color=color;
+	}
+	function BluePaint(color)
+	{
+		this.color=color;
+	}
+	RedPaint.prototype=new Paint();
+	BluePaint.prototype=new Paint();
+	function PaintBrush()
+	{
+		var p;
+		this.doPainting=function(){
+			return this.p.getColor();
+			}
+		this.setPaint=function(paint)
+		{
+			this.p=paint;
+		}
+	}
+	var jason={
+		brush:'PaintBrush',
+		paint:'BluePaint'
+		
+		}
+		
+	var springjs = (function(){
+		var pb;
+		init=function()
+		{
+			pb=new window[jason.brush]();
+			var paint=new window[jason.paint]('blue');
+			pb.setPaint(paint);
+		}
+		return {
+			getBean : function(){
+			init();
+			return pb;
+			}
+		}
+		})();
+		var pb=springjs.getBean();
+		console.log(pb.doPainting());
+</script>
+</head>
+</html>

@@ -1,0 +1,96 @@
+<html>
+<head>
+<script>
+	var person = new Object();
+	person.name="sanjana";
+	person.getName=function()
+	{
+		return this.name;
+	}
+	console.log(person.getName());
+	
+	var person2 = {
+		name : "sanjana2",
+		getName : function(){
+			return this.name;
+		}
+		}
+		console.log(person2.getName());
+		
+	var person3 = function(name,age){
+		var person=new Object();
+		person.age=age;
+		person.name=name;
+		person.getName=function(){
+		return person.name+" "+person.age;
+		}
+		return person;
+		}
+		var pers3=person3("sanjana",21);
+		console.log(pers3.getName());
+		
+	var person4 = function(name,age){
+		this.name=name;
+		this.age=age;
+		this.getName = function(){
+			return this.name +" " +this.age;
+			}
+			return this;
+			}
+		
+		var pers4=person4("sanjana2",21);
+		console.log(pers4.getName());
+		
+ 
+  
+	function Person5(name){ 
+		 this.name=name; 
+		 this.getName=function(){ 
+		 return this.name; 
+		 } 
+		 this.display=display; 
+		 } 
+		 
+		 function display(){ 
+		 return this.name; 
+		 } 
+		 
+		 var p5=new Person5("ramu"); 
+		 console.log(p5.getName()); 
+		 console.log(p5.display()); 
+		 
+	var p5copy= new p5.constructor("deep copy");
+	console.log(p5copy.display());
+	
+	Person5.prototype.setName=function(name){
+		this.name=name;
+		}
+		
+		p5.setName("sanjana2");
+		console.log(p5.display());
+		
+		
+		function Parent(name)
+		{
+			this.getName=function(){
+				return this.name;
+				}
+		}
+		function Child(name)
+		{
+			this.name=name;
+		}
+		
+		Child.prototype=new Parent();
+		Child.prototype.constructor=Child;
+		
+		var c=new Child("sanjana3");
+		console.log(c+" "+c.getName());
+		
+		var dpchild=new c.constructor("dopy copy ramu"); 
+		console.log(dpchild.getName());
+	</script>
+</head>
+<body>
+</body>
+</html>

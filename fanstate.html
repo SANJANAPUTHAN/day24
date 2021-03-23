@@ -1,0 +1,49 @@
+<html>
+<head>
+<script>
+	function Fan()
+	{
+		this.setState=function(state){
+			this.state=state;
+			}
+		this.pull=function(){
+			this.state.execute(this);
+			}			
+	}
+	function SwitchOffState()
+	{
+		this.execute=function(fan){
+			fan.setState(new SwitchOnState());
+			console.log("switch on state...");
+			}
+	}
+	function SwitchOnState()
+	{
+		this.execute=function(fan){
+			fan.setState(new LowSpeedState());
+			console.log("low fan state....");
+			}
+	}
+	function LowSpeedState()
+	{
+		this.execute= function(fan)
+		{
+			fan.setState(new HighSpeedState());
+			console.log("high speed state");
+		}
+	}
+	function HighSpeedState(){
+		this.execute= function(fan)
+		{
+		fan.setState(new SwitchOffState());
+		console.log("switchoff state");
+		}
+	}
+	
+	
+	var fan=new Fan();
+	fan.setState(new SwitchOffState());
+	setInterval("fan.pull();",500);
+</script>
+</head>
+</html>

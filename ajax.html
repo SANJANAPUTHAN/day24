@@ -1,0 +1,54 @@
+<html>
+<head>
+
+<script>
+				
+				var ajaxObj=new XMLHttpRequest();				
+				function makeAjaxCall(url){
+					//alert("hello");
+					var target=document.getElementById("targetDiv");
+					ajaxObj.open("GET",url);
+						ajaxObj.onreadystatechange=function(){
+							if(ajaxObj.readyState==4 && ajaxObj.status==200){
+								var response=ajaxObj.responseXML;
+								//target.innerHTML=response.documentElement.nodeName;
+								var rootelement=response.documentElement;
+								//alert(rootelement.firstChild.firstChild.firstChild.nodeValue);
+								/*alert(rootelement.nodeName);
+								for(var i=0;i<rootelement.childNodes.item.length;i++)
+								{
+									for(var j=0;j<rootelement.childNodes.item(i).childNodes.length;j++)
+									{
+											alert(rootelement.childNodes.item(i).childNodes.item(j).firstChild.nodeValue);			
+									}
+								}*/
+								var newelement=response.createElement("New");
+								var value=response.createTextNode("Value...");
+								newelement.appendChild(value);
+								rootelement.appendChild(newelement);	
+								console.log((new XMLSerializer()).serializeToString(response));
+
+								var str=new XMLSerializer().serializeToString(response);
+								console.log(str);
+								var response=new DOMParser().parseFromString(str, "text/xml");
+								console.log(response.documentElement);
+							}
+						}
+					ajaxObj.send(null);//where u make the actual request...
+				}
+		
+		</script>
+		</head>
+	<body>
+		
+	
+	<form>
+		<input type="button" onClick="makeAjaxCall('http://localhost:8080/books.xml')" value="MakeAjaxCall"></input>
+	</form>
+	
+	<div id="targetDiv">
+		This is the place where the data procured from the server will get displayed....
+	</div>
+	
+	</body>
+</html>
